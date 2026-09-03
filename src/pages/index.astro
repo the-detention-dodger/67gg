@@ -288,9 +288,12 @@ document.getElementById('burst').addEventListener('click', (e) => {
   const cy = r.top + r.height / 2 - 32;
   for (let i = 0; i < 8; i++) {
     const s = makeFloater('fireworks', cx, cy);
-    const a = (Math.PI * 2 * i) / 8;
-    s.vx = Math.cos(a) * 5;
-    s.vy = Math.sin(a) * 5;
+    // Random direction and speed so each burst scatters differently
+    const a = Math.random() * Math.PI * 2;
+    const speed = 2 + Math.random() * 4;
+    s.vx = Math.cos(a) * speed;
+    s.vy = Math.sin(a) * speed;
+    s.vr = (Math.random() - 0.5) * 6;
   }
   while (sprites.length > MAX_SPRITES) {
     sprites.shift().el.remove();
