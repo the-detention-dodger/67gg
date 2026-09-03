@@ -133,7 +133,6 @@ h1 {
   border-image-repeat: stretch;
   image-rendering: pixelated;
   width: 100%;
-  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,8 +141,9 @@ h1 {
 
 .photo-slot img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
   display: block;
 }
 
@@ -200,22 +200,19 @@ h1 {
 
 <main class="page">
   <h1>Happy 6+7th Birthday Tom!</h1>
-  <p class="subtitle">Achievement Unlocked: Teenager Mode </p>
+  <p class="subtitle">Achievement Unlocked: Teenager Mode Loading...</p>
 
   <div class="panel">
     <div class="photo-slot">
-      <div class="photo-empty">
-        Photo goes here<br>
-        <small>drop a file at public/imgs/photo.jpg</small>
-      </div>
+      <img src="/imgs/breathe_fire.png" alt="Tom breathing fire">
     </div>
   </div>
 
   <div class="panel wide">
     <p class="message">
-      Enjoy the absolutely best time everyday.<br>
-      May your pickaxe never break and<br>
-      creepers stay far away.
+      Enjoy your absolutely best time ever.<br>
+      And if it gets spicy sometimes<br>
+      You know what? Doesn't matter.
     </p>
   </div>
 
