@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Happy Birthday!</title>
+<title>Happy 6+7th Birthday Tom!</title>
 <style is:global>
 @font-face {
   font-family: 'Minecraft';
@@ -61,11 +61,25 @@ body::before {
 
 .floater {
   position: absolute;
+  will-change: transform;
+}
+
+/* 16x16 Minecraft sprites: keep hard pixel edges */
+.floater.sprite {
   width: 64px;
   height: 64px;
   image-rendering: pixelated;
-  will-change: transform;
   filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.5));
+}
+
+/* Photos: smooth scaling, full image visible, rounded frame */
+.floater.photo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  image-rendering: auto;
+  border-radius: 6px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.6));
 }
 
 .page {
@@ -185,7 +199,7 @@ h1 {
 
 <main class="page">
   <h1>Happy Birthday</h1>
-  <p class="subtitle">Achievement Unlocked: Another Year Survived</p>
+  <p class="subtitle">Achievement Unlocked: Teenager Mode </p>
 
   <div class="panel">
     <div class="photo-slot">
@@ -210,7 +224,8 @@ h1 {
 <script is:inline>
 const ITEMS = [
   'cake', 'cookie', 'pumpkin-pie', 'apple-golden', 'diamond',
-  'emerald', 'nether-star', 'fireworks', 'record-cat', 'gold-ingot'
+  'emerald', 'nether-star', 'fireworks', 'record-cat', 'gold-ingot',
+  'bee_types.webp', 'creeper_je2_be1_webp', 'chicken_jockey.webp'
 ];
 
 const layer = document.getElementById('floaters');
@@ -218,8 +233,8 @@ const sprites = [];
 
 function makeFloater(name, x, y) {
   const el = document.createElement('img');
-  el.className = 'floater';
-  el.src = '/imgs/' + name + '.png';
+  el.className = 'floater ' + (/\.(webp|jpe?g|gif|avif)$/i.test(name) ? 'photo' : 'sprite');
+  el.src = '/imgs/' + (name.includes('.') ? name : name + '.png');
   el.alt = '';
   layer.appendChild(el);
 
@@ -242,10 +257,10 @@ ITEMS.forEach((name, i) => {
 });
 
 function tick() {
-  const w = window.innerWidth - 64;
-  const h = window.innerHeight - 64;
-
   for (const s of sprites) {
+    const w = window.innerWidth - s.el.offsetWidth;
+    const h = window.innerHeight - s.el.offsetHeight;
+
     s.x += s.vx;
     s.y += s.vy;
     s.rot += s.vr;
