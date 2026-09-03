@@ -1,49 +1,284 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
----
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday!</title>
+<style>
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Minecrafter Alt';
+  src: url('/fonts/MinecrafterAlt.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --block-size: 48px;
+  --panel-zoom: 10;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  font-family: 'Minecraft', system-ui, sans-serif;
+  color: #fff;
+  background-color: #6b6b6b;
+  background-image: url('/imgs/stone-brick.png');
+  background-size: var(--block-size) var(--block-size);
+  background-repeat: repeat;
+  image-rendering: pixelated;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+  pointer-events: none;
+}
+
+#floaters {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floater {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  will-change: transform;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.5));
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Minecrafter Alt', 'Minecraft', sans-serif;
+  font-size: clamp(2rem, 7vw, 4rem);
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  color: #fdf6b2;
+  text-shadow: 4px 4px #000;
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: #a7f3d0;
+  text-shadow: 2px 2px #000;
+  margin: 0 0 1.75rem;
+}
+
+.panel {
+  border-style: solid;
+  border-width: calc(var(--block-size) / var(--panel-zoom));
+  border-image: url('/imgs/panel.png');
+  border-image-width: calc(var(--block-size) / var(--panel-zoom));
+  border-image-slice: 43% 43% fill;
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+  padding: 1rem;
+  margin: 0 auto 1.5rem;
+  max-width: 22rem;
+}
+
+.panel.wide { max-width: 30rem; }
+
+.photo-slot {
+  border-style: solid;
+  border-width: calc(var(--block-size) / 12);
+  border-image: url('/imgs/slot.png');
+  border-image-width: calc(var(--block-size) / 12);
+  border-image-slice: 43% 43% fill;
+  border-image-repeat: stretch;
+  image-rendering: pixelated;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.photo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-empty {
+  font-size: 0.95rem;
+  color: #d1d5db;
+  text-shadow: 2px 2px #000;
+  padding: 1rem;
+  line-height: 1.7;
+}
+
+.message {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  line-height: 1.9;
+  text-shadow: 2px 2px #000;
+  margin: 0;
+}
+
+.button {
+  display: inline-block;
+  font-family: 'Minecraft', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  user-select: none;
+  image-rendering: pixelated;
+  background-size: cover;
+  background-image: url('/imgs/button-inside.png');
+  border-style: solid;
+  border-width: calc(var(--block-size) / var(--panel-zoom));
+  border-image: url('/imgs/button-border.png');
+  border-image-width: calc(var(--block-size) / var(--panel-zoom));
+  border-image-slice: 10% 3%;
+  border-image-repeat: stretch;
+  color: #d1d5db;
+  text-shadow: 2px 2px #000;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-image: url('/imgs/button-inside-hover.png');
+  border-image: url('/imgs/button-border-hover.png');
+  color: #fef08a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floater { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="floaters" aria-hidden="true"></div>
+
+<main class="page">
+  <h1>Happy Birthday</h1>
+  <p class="subtitle">Achievement Unlocked: Another Year Survived</p>
+
+  <div class="panel">
+    <div class="photo-slot">
+      <div class="photo-empty">
+        Photo goes here<br>
+        <small>drop a file at public/imgs/photo.jpg</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel wide">
+    <p class="message">
+      Wishing you a legendary day.<br>
+      May your pickaxe never break and<br>
+      your creepers stay far away.
+    </p>
+  </div>
+
+  <a class="button" href="#" id="burst">Spawn Fireworks</a>
+</main>
+
+<script is:inline>
+const ITEMS = [
+  'cake', 'cookie', 'pumpkin-pie', 'apple-golden', 'diamond',
+  'emerald', 'nether-star', 'fireworks', 'record-cat', 'gold-ingot'
+];
+
+const layer = document.getElementById('floaters');
+const sprites = [];
+
+function makeFloater(name, x, y) {
+  const el = document.createElement('img');
+  el.className = 'floater';
+  el.src = '/imgs/' + name + '.png';
+  el.alt = '';
+  layer.appendChild(el);
+
+  const s = {
+    el,
+    x: x !== undefined ? x : Math.random() * (window.innerWidth - 64),
+    y: y !== undefined ? y : Math.random() * (window.innerHeight - 64),
+    vx: (Math.random() - 0.5) * 2.2,
+    vy: (Math.random() - 0.5) * 2.2,
+    rot: Math.random() * 360,
+    vr: (Math.random() - 0.5) * 1.5
+  };
+  sprites.push(s);
+  return s;
+}
+
+ITEMS.forEach((name, i) => {
+  makeFloater(name);
+  if (i % 2 === 0) makeFloater(name);
+});
+
+function tick() {
+  const w = window.innerWidth - 64;
+  const h = window.innerHeight - 64;
+
+  for (const s of sprites) {
+    s.x += s.vx;
+    s.y += s.vy;
+    s.rot += s.vr;
+
+    if (s.x <= 0) { s.x = 0; s.vx = Math.abs(s.vx); }
+    if (s.x >= w) { s.x = w; s.vx = -Math.abs(s.vx); }
+    if (s.y <= 0) { s.y = 0; s.vy = Math.abs(s.vy); }
+    if (s.y >= h) { s.y = h; s.vy = -Math.abs(s.vy); }
+
+    s.el.style.transform =
+      'translate(' + s.x + 'px,' + s.y + 'px) rotate(' + s.rot + 'deg)';
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+const MAX_SPRITES = 60;
+
+document.getElementById('burst').addEventListener('click', (e) => {
+  e.preventDefault();
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  for (let i = 0; i < 8; i++) {
+    const s = makeFloater('fireworks', cx, cy);
+    const a = (Math.PI * 2 * i) / 8;
+    s.vx = Math.cos(a) * 5;
+    s.vy = Math.sin(a) * 5;
+  }
+  while (sprites.length > MAX_SPRITES) {
+    sprites.shift().el.remove();
+  }
+});
+</script>
+
+</body>
 </html>
