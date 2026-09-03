@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Happy Birthday!</title>
-<style>
+<style is:global>
 @font-face {
   font-family: 'Minecraft';
   src: url('/fonts/Minecraft-Regular.woff2') format('woff2');
@@ -266,8 +266,9 @@ const MAX_SPRITES = 60;
 
 document.getElementById('burst').addEventListener('click', (e) => {
   e.preventDefault();
-  const cx = window.innerWidth / 2;
-  const cy = window.innerHeight / 2;
+  const r = e.currentTarget.getBoundingClientRect();
+  const cx = r.left + r.width / 2 - 32;
+  const cy = r.top + r.height / 2 - 32;
   for (let i = 0; i < 8; i++) {
     const s = makeFloater('fireworks', cx, cy);
     const a = (Math.PI * 2 * i) / 8;
