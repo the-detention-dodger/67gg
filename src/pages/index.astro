@@ -256,10 +256,7 @@ function makeFloater(name, x, y) {
   return s;
 }
 
-ITEMS.forEach((name, i) => {
-  makeFloater(name);
-  if (i % 2 === 0) makeFloater(name);
-});
+ITEMS.forEach((name) => makeFloater(name));
 
 function tick() {
   for (const s of sprites) {
